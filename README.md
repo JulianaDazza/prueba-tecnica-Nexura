@@ -6,12 +6,12 @@ Desarrollo de una aplicación web para la gestión de empleados, realizada como 
 El sistema permite administrar la información de los empleados, incluyendo su área de trabajo y los roles que desempeñan dentro de la organización.
 
 Las funcionalidades principales del sistema son:
-    - Crear empleados
-    - Listar empleados
-    - Editar empleados
-    - Eliminar empleados
-    - Asignar áreas
-    - Asignar múltiples roles por empleado
+- Crear empleados
+- Listar empleados
+- Editar empleados
+- Eliminar empleados
+- Asignar áreas
+- Asignar múltiples roles por empleado
 
 El proyecto fue desarrollado utilizando PHP, una base de datos MySQL, y una estructura básica tipo MVC, priorizando buenas prácticas, claridad del código y correcto manejo de la información.
 
@@ -26,6 +26,8 @@ El proyecto fue desarrollado utilizando PHP, una base de datos MySQL, y una estr
 
 ## 3. Estructura del proyecto
 La aplicación se organizó de la siguiente manera:
+
+
 prueba-tecnica-Nexura/
 │
 ├── config/
@@ -51,6 +53,7 @@ prueba-tecnica-Nexura/
 │   └── schema.sql            # Esquema versionado de la base de datos
 │
 └── README.md
+
 
 ## 4. Base de Datos
 ### 4.1 Versionamiento del esquema
