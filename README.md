@@ -27,8 +27,8 @@ El proyecto fue desarrollado utilizando PHP, una base de datos MySQL, y una estr
 ## 3. Estructura del proyecto
 La aplicación se organizó de la siguiente manera:
 
-
-prueba-tecnica-Nexura/
+```text
+prueba-tecnica/
 │
 ├── config/
 │   └── database.php          # Configuración de conexión a la base de datos
@@ -47,12 +47,13 @@ prueba-tecnica-Nexura/
 │   ├── css/
 │   │   └── styles.css        # Estilos de la aplicación
 │   └── js/
-│       └── validations.js   # Validaciones del formulario
+│       └── validaciones.js   # Validaciones del formulario
 │
 ├── database/
 │   └── schema.sql            # Esquema versionado de la base de datos
 │
 └── README.md
+```
 
 
 ## 4. Base de Datos
