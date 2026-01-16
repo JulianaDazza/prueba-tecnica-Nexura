@@ -66,7 +66,7 @@ class User{
             foreach ($data['roles'] as $rol_id){
                 $stmRol->bindParam('empleado_id', $empleado_id);
                 $stmRol->bindParam('rol_id', $rol_id);
-                $stmRol->excute();
+                $stmRol->execute();
             }
 
             $this->conn->commit();
@@ -93,19 +93,14 @@ class User{
     }
 
     /* BUSCAR ROLES DEL EMPLEADO */
-    public function getRoles($empleado_id){
-        $query = "
-                SELECT rol_id FROM empleado_rol
-                WHERE empleado_id = :empleado_id
-        ";
-        
+    public function getRoles($empleadoId){
+        $query = "SELECT rol_id FROM empleado_rol WHERE empleado_id = ?";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":empleado_id", $empleado_id);
-        $stmt->execute();
+        $stmt->execute([$empleadoId]);
 
-        return $stmt->fetch(PDO::FETCH_COLUMN);  
-        
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
+
 
     /* ACTUALIZAR EMPLEADO */
     public function update($id, $data){
@@ -113,7 +108,7 @@ class User{
             $this->conn->beginTransaction();
 
             $query = "
-                    UPDATE mpleados SET
+                    UPDATE empleados SET
                         nombre = :nombre,
                         email = :email,
                         sexo = :sexo,
@@ -123,13 +118,14 @@ class User{
                     WHERE id = :id
             ";
 
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(":nombre", $data['nombre']);
-            $stmt->bindParam(":email", $data['email']);
-            $stmt->bindParam(":sexo", $data['sexo']);
-            $stmt->bindParam(":area_id", $data['area_id']);
-            $stmt->bindParam(":boletin", $data['boletin']);
-            $stmt->bindParam(":descripcion", $data['descripcion']);
+           $stmt = $this->conn->prepare($query);
+           $stmt->bindParam(":nombre", $data['nombre']);
+           $stmt->bindParam(":email", $data['email']);
+           $stmt->bindParam(":sexo", $data['sexo']);
+           $stmt->bindParam(":area_id", $data['area_id']);
+           $stmt->bindParam(":boletin", $data['boletin']);
+           $stmt->bindParam(":descripcion", $data['descripcion']);
+           $stmt->bindParam(":id", $id);
 
             $stmt->execute();
 
@@ -151,7 +147,7 @@ class User{
             $stmtInsert = $this->conn->prepare($queryInsert);
 
             foreach ($data['roles'] as $rol_id){
-                $stmtInsert->bindParam(':empleado_id', $rol_id);
+                $stmtInsert->bindParam(':empleado_id', $id);
                 $stmtInsert->bindParam(':rol_id', $rol_id);
                 $stmtInsert->execute();
             }

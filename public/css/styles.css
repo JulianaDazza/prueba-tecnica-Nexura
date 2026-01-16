@@ -1,0 +1,160 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo general */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    padding: 30px;
+    color: #333;
+}
+
+input,
+textarea,
+select,
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+/* Títulos */
+h2 {
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* Enlaces */
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Mensajes */
+p {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Formulario */
+form {
+    background: #ffffff;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Botones */
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f1f1f1;
+}
+
+/* Acciones */
+td a {
+    margin-right: 10px;
+}
+
+/* Links principales */
+a[href*="formulario.php"] {
+    display: inline-block;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Aviso informativo */
+.alert {
+    background-color: #d9edf7;
+    color: #31708f;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Grupos */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Radios y checkboxes */
+.radio,
+.checkbox {
+    display: block;
+    font-weight: normal;
+    margin-top: 5px;
+}
+
+/* Ajuste formulario */
+form {
+    max-width: 700px;
+}
+
+/* Botón estilo bootstrap */
+button {
+    background-color: #337ab7;
+}
+
+button:hover {
+    background-color: #286090;
+}
+
+/* Cancelar */
+a.cancelar {
+    margin-left: 10px;
+    color: #555;
+}

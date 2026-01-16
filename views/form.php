@@ -8,7 +8,6 @@ $database = new Database();
 $db = $database->getConnection();
 $empleadoModel = new User($db);
 
-// Datos para los selects y los checkbox
 $areas = $db->query("SELECT id, nombre FROM areas")->fetchAll(PDO::FETCH_ASSOC);
 $roles = $db->query("SELECT id, nombre FROM roles")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -23,81 +22,105 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Formulario Empleado</title>
-    <link rel="stylesheet" href="../public/css/styles.css">
-    <script src="../public/js/validaciones.js" defer></script>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulario Empleado</title>
+        <link rel="stylesheet" href="../public/css/styles.css">
+        <script src="../public/js/validaciones.js" defer></script>
+    </head>
 
-<h2><?php echo $empleado ? "Editar Empleado" : "Crear Empleado"; ?></h2>
+    <body>
 
-<?php if (isset($_SESSION['error'])): ?>
-    <p style="color:red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
-<?php endif; ?>
+        <h2><?php echo $empleado ? "Editar empleado" : "Crear empleado"; ?></h2>
 
-<form method="POST"
-      action="../controllers/EmpleadoController.php?accion=<?php echo $empleado ? 'actualizar' : 'crear'; ?>"
-      onsubmit="return validarFormulario();">
+        <div class="alert">
+            Los campos con asteriscos (*) son obligatorios
+        </div>
 
-    <?php if ($empleado): ?>
-        <input type="hidden" name="id" value="<?php echo $empleado['id']; ?>">
-    <?php endif; ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            <p style="color:red;"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></p>
+        <?php endif; ?>
 
-    <!-- Nombre -->
-    <label>Nombre:</label><br>
-    <input type="text" name="nombre" value="<?php echo $empleado['nombre'] ?? ''; ?>" required><br><br>
+        <form method="POST"
+            action="../controllers/userController.php?accion=<?php echo $empleado ? 'actualizar' : 'crear'; ?>"
+            onsubmit="return validarFormulario();">
 
-    <!-- Email -->
-    <label>Email:</label><br>
-    <input type="email" name="email" value="<?php echo $empleado['email'] ?? ''; ?>" required><br><br>
+            <?php if ($empleado): ?>
+                <input type="hidden" name="id" value="<?php echo $empleado['id']; ?>">
+            <?php endif; ?>
 
-    <!-- Descripción -->
-    <label>Descripción:</label><br>
-    <textarea name="descripcion" required><?php echo $empleado['descripcion'] ?? ''; ?></textarea><br><br>
+            <div class="form-group">
+                <label>Nombre completo *</label>
+                <input type="text" name="nombre"
+                    placeholder="Nombre completo del empleado"
+                    value="<?php echo $empleado['nombre'] ?? ''; ?>" required>
+            </div>
 
-    <!-- Sexo -->
-    <label>Sexo:</label><br>
-    <input type="radio" name="sexo" value="M" <?php echo (isset($empleado) && $empleado['sexo'] === 'M') ? 'checked' : ''; ?>> Masculino
-    <input type="radio" name="sexo" value="F" <?php echo (isset($empleado) && $empleado['sexo'] === 'F') ? 'checked' : ''; ?>> Femenino
-    <br><br>
+            <div class="form-group">
+                <label>Correo electrónico *</label>
+                <input type="email" name="email"
+                    placeholder="Correo electrónico"
+                    value="<?php echo $empleado['email'] ?? ''; ?>" required>
+            </div>
 
-    <!-- Área -->
-    <label>Área:</label><br>
-    <select name="area_id" required>
-        <option value="">Seleccione un área</option>
-        <?php foreach ($areas as $area): ?>
-            <option value="<?php echo $area['id']; ?>"
-                <?php echo (isset($empleado) && $empleado['area_id'] == $area['id']) ? 'selected' : ''; ?>>
-                <?php echo $area['nombre']; ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <br><br>
+            <div class="form-group">
+                <label>Sexo *</label>
+                <label class="radio">
+                    <input type="radio" name="sexo" value="M"
+                        <?php echo (isset($empleado) && $empleado['sexo'] === 'M') ? 'checked' : ''; ?>>
+                    Masculino
+                </label>
+                <label class="radio">
+                    <input type="radio" name="sexo" value="F"
+                        <?php echo (isset($empleado) && $empleado['sexo'] === 'F') ? 'checked' : ''; ?>>
+                    Femenino
+                </label>
+            </div>
 
-    <!-- Roles -->
-    <label>Roles:</label><br>
-    <?php foreach ($roles as $rol): ?>
-        <input type="checkbox" name="roles[]"
-               value="<?php echo $rol['id']; ?>"
-            <?php echo in_array($rol['id'], $rolesEmpleado) ? 'checked' : ''; ?>>
-        <?php echo $rol['nombre']; ?><br>
-    <?php endforeach; ?>
-    <br>
+            <div class="form-group">
+                <label>Área *</label>
+                <select name="area_id" required>
+                    <option value="">Seleccione un área</option>
+                    <?php foreach ($areas as $area): ?>
+                        <option value="<?php echo $area['id']; ?>"
+                            <?php echo (isset($empleado) && $empleado['area_id'] == $area['id']) ? 'selected' : ''; ?>>
+                            <?php echo $area['nombre']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-    <!-- Boletín -->
-    <label>
-        <input type="checkbox" name="boletin" value="1"
-            <?php echo (isset($empleado) && $empleado['boletin'] == 1) ? 'checked' : ''; ?>>
-        Recibir boletín
-    </label>
-    <br><br>
+            <div class="form-group">
+                <label>Descripción *</label>
+                <textarea name="descripcion"
+                        placeholder="Descripción de la experiencia del empleado"
+                        required><?php echo $empleado['descripcion'] ?? ''; ?></textarea>
+            </div>
 
-    <button type="submit">Guardar</button>
-    <a href="listar.php">Cancelar</a>
+            <div class="form-group checkbox">
+                <label>
+                    <input type="checkbox" name="boletin" value="1"
+                        <?php echo (isset($empleado) && $empleado['boletin'] == 1) ? 'checked' : ''; ?>>
+                    Deseo recibir boletín informativo
+                </label>
+            </div>
 
-</form>
+            <div class="form-group">
+                <label>Roles *</label>
+                <?php foreach ($roles as $rol): ?>
+                    <label class="checkbox">
+                        <input type="checkbox" name="roles[]"
+                            value="<?php echo $rol['id']; ?>"
+                            <?php echo in_array($rol['id'], $rolesEmpleado) ? 'checked' : ''; ?>>
+                        <?php echo $rol['nombre']; ?>
+                    </label>
+                <?php endforeach; ?>
+            </div>
 
-</body>
+            <button type="submit">Guardar</button>
+            <a href="list.php" class="cancelar">Cancelar</a>
+
+        </form>
+
+    </body>
 </html>

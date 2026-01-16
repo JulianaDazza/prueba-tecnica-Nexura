@@ -37,3 +37,15 @@ CREATE TABLE empleado_rol (
     CONSTRAINT fk_empleado_rol_rol
         FOREIGN KEY (rol_id) REFERENCES roles(id) ON DELETE CASCADE
 );
+
+
+INSERT INTO areas (nombre) VALUES
+('Administración'),
+('Ventas'),
+('Calidad'),
+('Producción');
+
+INSERT INTO roles (nombre) VALUES
+('Profesional de proyectos - Desarrollador'),
+('Gerente estratégico'),
+('Auxiliar administrativo');

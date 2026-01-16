@@ -76,7 +76,7 @@ try {
             'roles' => $_POST['roles']
         ];
 
-        if ($empleado->create($data)) {
+        if ($empleado->update($id,$data)) {
             $_SESSION['success'] = "Empleado actualizado correctamente.";
         } else {
             $_SESSION['error'] = "Error al actualizar el empleado.";
@@ -95,6 +95,9 @@ try {
         } else {
             $_SESSION['error'] = "Error al eliminar el empleado.";
         }
+
+        header("Location: ../views/list.php");
+        exit;
     }
 
 } catch(Exception $e) {
